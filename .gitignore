@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+/migrations/
 
 # next.js
 /.next/
@@ -42,3 +43,4 @@ next-env.d.ts
 
 bun.lockb
 package-lock.json
+api/__pycache__
