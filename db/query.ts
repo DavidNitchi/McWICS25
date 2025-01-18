@@ -37,7 +37,6 @@ export async function getExtracurricular(userEmail: string) {
 
 type NewUser = typeof schema.usersTable.$inferInsert;
 export async function addUser(user: NewUser) {
-  console.log(user);
   const data = await db.insert(schema.usersTable).values(user);
   return data;
 }
