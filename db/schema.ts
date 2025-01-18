@@ -4,17 +4,18 @@ import { relations } from 'drizzle-orm';
 
 export const usersTable = pgTable('users_table', {
   //id: serial('id').primaryKey(),
-  //name: text('name').notNull(),
+  name: text('name').notNull(),
   email: text('email').notNull().unique().primaryKey(),
   password: serial('password').notNull()
 });
 
 export const usersRelations = relations(usersTable, ({ many }) => ({
-    education: many(education),
-    workExperience: many(workExperience),
-    project: many(project),
+  education: many(education),
+  workExperience: many(workExperience),
+  project: many(project),
 	extraCurricular: many(extraCurricular)
 }));
+
 
 export const extraCurricular = pgTable('extra_curricular', {
     id: serial('id').primaryKey(),
