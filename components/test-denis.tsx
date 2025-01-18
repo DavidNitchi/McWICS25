@@ -9,12 +9,12 @@ export default function DenisTest() {
     <div>
       <button
         onClick={async () => {
-          const response = await fetch("api/hello");
+          const response = await fetch("/api/hello");
           const data = await response.json();
           setTestText(data.message);
         }}
       >
-        test
+        test test
       </button>
       <div>{testText}</div>
     </div>
