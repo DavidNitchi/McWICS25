@@ -10,6 +10,7 @@ const navBar: React.FC = () => {
                 <NavButton text="profile" link="/profile" />
                 <NavButton text="cv creation" link="/cvCreation" />
                 <NavButton text="new jobs today" link="/newJobs" />
+                {/* <NavButton text="logout" link="#" onClick={logout} />  */}
             </ul>
       </nav>
     )
