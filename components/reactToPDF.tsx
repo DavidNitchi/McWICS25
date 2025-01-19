@@ -1,6 +1,5 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, pdf } from '@react-pdf/renderer';
-import { extraCurricular } from '@/db/schema';
 
 const styles = StyleSheet.create({
   page: {
@@ -18,9 +17,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   headerLast: {
-    color: 'grey',
-  },
-  headerFirst: {
     color: 'black',
   },
   contact: {
@@ -30,7 +26,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 12,
     fontSize: 10,
-    color: '#333',
+    color: 'grey',
   },
   contactItem: {
     marginHorizontal: 5,
@@ -61,6 +57,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#333',
     justifyContent: 'flex-start',
+    fontSize: 10,
   },
   highlight: {
     color: 'red',
@@ -73,174 +70,140 @@ const styles = StyleSheet.create({
   },
   list: {
     marginLeft: 10,
-    color: 'blue',  
+    color: 'blue',
     fontSize: 10,
   }
 });
 
-// const MyDocument = () => (
-//   <Document>
-//     <Page size="A4" style={styles.page}>
-//       {/* Header */}
-//       <View style={styles.header}>
-//         <Text style={styles.headerFirst}>[First]</Text> 
-//         <Text style={styles.headerLast}>[Last]</Text>
-//       </View>
-//       <View style={styles.contact}>
-//         <Text style={styles.contactItem}>[Email: test@gmail.com]</Text>
-//       </View>
 
-//       {/* Experience */}
-//       <View style={styles.sectionTitleWrap}>
-//         <Text style={styles.sectionTitle}>Work Experience</Text>
-//       </View>
-//       <View style={styles.section}>
-//         <View style={styles.sectionInfo}>
-//           <View style={styles.content}>
-//             <Text style={styles.highlight}>[Position, Company - ]</Text>
-//             <Text style={styles.text}>[location]</Text>
-//           </View>
-//           <Text style={styles.date}>[date]</Text>
-//         </View>
-//         <View style={styles.list}>
-//           <Text style={styles.text}>• [wow experience]</Text>
-//           <Text style={styles.text}>• [i also did that] </Text>
-//         </View>
-//       </View>
-
-//       {/* Projects */}
-//       <View style={styles.sectionTitleWrap}>
-//         <Text style={styles.sectionTitle}>Projects</Text>
-//       </View>
-//       <View style={styles.section}>
-//         <View style={styles.sectionInfo}>
-//           <View style={styles.content}>
-//             <Text style={styles.highlight}>[Project name - ]</Text>
-//             <Text style={styles.text}>[details]</Text>
-//           </View>
-//           <Text style={styles.date}>[date]</Text>
-//         </View>
-//         <View style={styles.list}>
-//           <Text style={styles.text}> [description]</Text>
-//           <Text style={styles.text}>• [detail]</Text>
-//           <Text style={styles.text}>• [more details] </Text>
-//         </View>
-//       </View>
-
-//       {/* Education */}
-//       <View style={styles.sectionTitleWrap}>
-//         <Text style={styles.sectionTitle}>Education</Text>
-//       </View>
-//       <View style={styles.section}>
-//         <View style={styles.sectionInfo}>
-//           <View style={styles.content}>
-//             <Text style={styles.highlight}>[School name, ]</Text>
-//             <Text style={styles.text}>[degree]</Text>
-//           </View>
-//           <Text style={styles.date}>[date]</Text>
-//         </View>     
-//       </View>
-
-//       {/* Extracurriculars */}
-//       <View style={styles.sectionTitleWrap}>
-//         <Text style={styles.sectionTitle}>Extracurriculars</Text>
-//       </View>
-//       <View style={styles.section}>
-//         <View style={styles.sectionInfo}>
-//           <View style={styles.content}>
-//             <Text style={styles.highlight}>[Name - ]</Text>
-//             <Text style={styles.text}>[details]</Text>
-//           </View>
-//           <Text style={styles.date}>[date]</Text>
-//         </View>
-//         <View style={styles.list}>
-//           <Text style={styles.text}> [description]</Text>
-//           <Text style={styles.text}>• [detail]</Text>
-//           <Text style={styles.text}>• [more details] </Text>
-//         </View>
-//       </View>
-
-//     </Page>
-//   </Document>
-// );
-const exampleData = {
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'john.doe@example.com',
+const basic = {
+  name: 'John Doe',
+  email: 'john.dow@example.com',
+  skills: [],
+  // experience: [],
   experience: [
     {
-      position: 'Software Engineer',
-      company: 'Tech Corp',
-      location: 'San Francisco, CA',
-      date: 'Jan 2020 - Present',
-      details: ['Developed scalable web applications', 'Led a team of 5 developers'],
+      title: 'Software Engineer',
+      company: '',
+      startDate: '',
+      endDate: 'Present',
+      description: 'Developed web applications using React and Node.js',
+      skills: [],
     },
     {
-      position: 'Intern',
-      company: 'Startup Inc',
-      location: 'New York, NY',
-      date: 'Jun 2019 - Dec 2019',
-      details: ['Assisted in frontend development', 'Wrote unit tests'],
+      title: 'Software Engineer 2',
+      company: 'Example Inc.',
+      startDate: '2019',
+      endDate: 'Present',
+      description: 'Developed web applications using React and Node.js',
+      skills: ['React', 'Node.js', 'JavaScript'],
+    },
+  ],
+  projects: [],
+  education: [],
+  extraCurricular: [],
+}
+
+
+const exampleData = {
+  name: 'John Doe',
+  email: 'john.doe@example.com',
+  skills: [
+    { name: 'React' },
+    { name: 'Node.js' },
+    { name: 'JavaScript' },
+  ],
+  experience: [
+    {
+      title: 'Software Engineer',
+      company: 'Example Inc.',
+      startDate: '2019',
+      endDate: 'Present',
+      description: 'Developed web applications using React and Node.js',
+      skills: ['React', 'Node.js', 'JavaScript'],
+    },
+    {
+      title: 'Software Engineer 2',
+      company: 'Example Inc.',
+      startDate: '2019',
+      endDate: 'Present',
+      description: 'Developed web applications using React and Node.js',
+      skills: ['React', 'Node.js', 'JavaScript'],
     },
   ],
   projects: [
     {
-      name: 'Awesome Project',
-      details: 'A project showcasing dynamic PDF generation',
-      date: '2022',
-      descriptions: ['Used React and React-PDF', 'Implemented dynamic data rendering'],
+      title: 'Example Project',
+      startDate: '2020',
+      endDate: '2021',
+      descriptions: 'Developed web applications using React and Node.js',
+      skills: ['React', 'Node.js', 'JavaScript'],
+    },
+    {
+      title: 'Example Project 2',
+      startDate: '2020',
+      endDate: '2021',
+      descriptions: 'Developed web applications using React and Node.js',
+      skills: ['React', 'Node.js', 'JavaScript'],
     },
   ],
   education: [
     {
-      school: 'University of Example',
-      degree: 'B.Sc. in Computer Science',
-      date: '2015 - 2019',
-    },
+      school: 'Example University',
+      degree: 'B.S.',
+      major: 'Computer Science',
+      startDate: '2015',
+      endDate: '2019',
+      skills: [],
+    }
   ],
   extraCurricular: [
     {
-      name: 'coding',
-      date: '2024',
-      description: 'hackathon',
-    }
+      title: 'Example Club',
+      description: 'President',
+    },
   ]
 };
 
 interface Experience {
-  position: string;
+  title: string;
   company: string;
-  location: string;
-  date: string;
-  details: string[];
+  startDate: string;
+  endDate: string;
+  description: string;
+  skills: string[];
 }
 
 interface Project {
-  name: string;
-  details: string;
-  date: string;
-  descriptions: string[];
+  title: string;
+  startDate: string;
+  endDate: string;
+  descriptions: string;
+  skills: string[];
 }
 
 interface Education {
   school: string;
   degree: string;
-  date: string;
+  major: string;
+  startDate: string;
+  endDate: string;
+  skills: string[];
 }
 
-interface Extracurriculars {
-  name: string;
-  date: string;
+interface Extracurricular {
+  title: string;
   description: string;
 }
 
 interface Data {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
+  skills: { name: string }[];
   experience: Experience[];
   projects: Project[];
   education: Education[];
+  extraCurricular: Extracurricular[];
 }
 
 const MyDocument = ({ data }: { data: Data }) => (
@@ -248,87 +211,145 @@ const MyDocument = ({ data }: { data: Data }) => (
     <Page size="A4" style={styles.page}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerFirst}>{data.firstName}</Text>
-        <Text style={styles.headerLast}>{data.lastName}</Text>
+        <Text style={styles.headerLast}>{data.name}</Text>
       </View>
       <View style={styles.contact}>
         <Text style={styles.contactItem}>Email: {data.email}</Text>
       </View>
 
       {/* Experience */}
-      <View style={styles.sectionTitleWrap}>
-        <Text style={styles.sectionTitle}>Work Experience</Text>
-      </View>
-      {data.experience.map((exp, index) => (
-        <View key={index} style={styles.section}>
-          <View style={styles.sectionInfo}>
-            <View style={styles.content}>
-              <Text style={styles.highlight}>{`${exp.position}, ${exp.company} - `}</Text>
-              <Text style={styles.text}>{exp.location}</Text>
+      {data.experience.length > 0 && (
+        <>
+          <View style={styles.sectionTitleWrap}>
+            <Text style={styles.sectionTitle}>Work Experience</Text>
+          </View>
+          {data.experience.map((exp, index) => (
+            <View key={index} style={styles.section}>
+              <View style={styles.sectionInfo}>
+                <View style={styles.content}>
+                  <Text style={styles.highlight}>{`${exp.title}`}</Text>
+                  {exp.company && <Text style={styles.text}>{`, ${exp.company}`}</Text>}
+                </View>
+                {exp.startDate && exp.endDate && <Text style={styles.date}>{`${exp.startDate} - ${exp.endDate}`}</Text>}
+              </View>
+              <View style={styles.list}>
+                <Text style={styles.text}>
+                  • {exp.description}
+                </Text>
+                {/* comma separated skills */}
+                {exp.skills && exp.skills.length > 0 && (
+                  <Text style={styles.text}>
+                    • Skills: {exp.skills.join(', ')}
+                  </Text>
+                )}
+              </View>
             </View>
-            <Text style={styles.date}>{exp.date}</Text>
-          </View>
-          <View style={styles.list}>
-            {exp.details.map((detail, i) => (
-              <Text key={i} style={styles.text}>• {detail}</Text>
-            ))}
-          </View>
-        </View>
-      ))}
+          ))}
+        </>
+      )}
 
       {/* Projects */}
-      <View style={styles.sectionTitleWrap}>
-        <Text style={styles.sectionTitle}>Projects</Text>
-      </View>
-      {data.projects.map((project, index) => (
-        <View key={index} style={styles.section}>
-          <View style={styles.sectionInfo}>
-            <View style={styles.content}>
-              <Text style={styles.highlight}>{`${project.name} - `}</Text>
-              <Text style={styles.text}>{project.details}</Text>
+      {data.projects.length > 0 && (
+        <>
+          <View style={styles.sectionTitleWrap}>
+            <Text style={styles.sectionTitle}>Projects</Text>
+          </View>
+          {data.projects.map((project, index) => (
+            <View key={index} style={styles.section}>
+              <View style={styles.sectionInfo}>
+                <View style={styles.content}>
+                  <Text style={styles.highlight}>{`${project.title}`}</Text>
+                </View>
+                {project.startDate && project.endDate && <Text style={styles.date}>{`${project.startDate} - ${project.endDate}`}</Text>}
+              </View>
+              <View style={styles.list}>
+                <Text style={styles.text}>
+                  • {project.descriptions}
+                </Text>
+                {/* comma separated skills */}
+                {project.skills && project.skills.length > 0 && (
+                  <Text style={styles.text}>
+                    • Skills: {project.skills.join(', ')}
+                  </Text>
+                )}
+              </View>
             </View>
-            <Text style={styles.date}>{project.date}</Text>
-          </View>
-          <View style={styles.list}>
-            {project.descriptions.map((desc, i) => (
-              <Text key={i} style={styles.text}>• {desc}</Text>
-            ))}
-          </View>
-        </View>
-      ))}
+          ))}
+        </>
+      )}
 
-    {/* TODO */}
+      {/* Skills */}
+      {data.skills.length > 0 && (
+        <>
+          <View style={styles.sectionTitleWrap}>
+            <Text style={styles.sectionTitle}>Skills</Text>
+          </View>
+          <View style={styles.section}>
+            {/* comma separated list of skills from the user */}
+            <View style={styles.list}>
+              <Text style={styles.text}>
+                •
+                {data.skills.map((skill, index) => (
+                  <Text key={index}> {skill.name}{index !== data.skills.length - 1 ? ',' : ''}</Text>
+                ))}
+              </Text>
+            </View>
+          </View>
+        </>
+      )}
 
-      
+      {/* Education */}
+      {data.education.length > 0 && (
+        <>
+          <View style={styles.sectionTitleWrap}>
+            <Text style={styles.sectionTitle}>Education</Text>
+          </View>
+          {data.education.map((edu, index) => (
+            <View key={index} style={styles.section}>
+              <View style={styles.sectionInfo}>
+                <View style={styles.content}>
+                  <Text style={styles.highlight}>{`${edu.school}`}</Text>
+                  <Text style={styles.text}>{`, ${edu.degree} in ${edu.major}`}</Text>
+                </View>
+                {edu.startDate && edu.endDate && <Text style={styles.date}>{`${edu.startDate} - ${edu.endDate}`}</Text>}
+              </View>
+            </View>
+          ))}
+        </>
+      )}
+
+      {/* Extracurriculars */}
+      {data.extraCurricular.length > 0 && (
+        <>
+          <View style={styles.sectionTitleWrap}>
+            <Text style={styles.sectionTitle}>Extracurriculars</Text>
+          </View>
+          {data.extraCurricular.map((extra, index) => (
+            <View key={index} style={styles.section}>
+              <View style={styles.sectionInfo}>
+                <View style={styles.content}>
+                  <Text style={styles.highlight}>{`${extra.title}`}</Text>
+                </View>
+              </View>
+              <View style={styles.list}>
+                <Text style={styles.text}>
+                  • {extra.description}
+                </Text>
+              </View>
+            </View>
+          ))}
+        </>
+      )}
+
+
     </Page>
   </Document>
 );
 
-
-// const Component = () => {
-//   const handleDownload = async () => {
-//     const doc = <MyDocument />;
-//     const asPdf = pdf();
-//     asPdf.updateContainer(doc);
-//     const blob = await asPdf.toBlob();
-//     const url = URL.createObjectURL(blob);
-//     const a = document.createElement('a');
-//     a.href = url;
-//     a.download = 'example.pdf';
-//     a.click();
-//   };
-
-//   return (
-//     <div>
-//       <button onClick={handleDownload}>Download CV</button>
-//     </div>
-//   );
-// };
-
 // export default Component;
 const Component = () => {
   const handleDownload = async () => {
-    const doc = <MyDocument data={exampleData} />;
+    const doc = <MyDocument data={basic} />;
     const asPdf = pdf();
     asPdf.updateContainer(doc);
     const blob = await asPdf.toBlob();
@@ -347,5 +368,4 @@ const Component = () => {
 };
 
 export default Component;
-
 
