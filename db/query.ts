@@ -69,7 +69,9 @@ export async function editEducation(education: NewEducation) {
 
 type NewProject = typeof schema.project.$inferInsert;
 export async function addProject(project: NewProject) {
+  console.log(project)
   const ret  = await db.insert(schema.project).values(project);
+  console.log(ret)
   return ret
 }
 export async function editProject(project: NewProject) {

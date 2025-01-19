@@ -18,7 +18,7 @@ export const usersRelations = relations(usersTable, ({ many }) => ({
 
 
 export const extraCurricular = pgTable('extra_curricular', {
-    id: serial('id').notNull().primaryKey(),
+    id: text('id').notNull().primaryKey(),
     title: text('title').notNull(),
     description: text('description').notNull(),
     userId: text('user_id')
@@ -34,7 +34,7 @@ export const extraCurricularRelations = relations(extraCurricular, ({ one }) => 
 }));
 
 export const education = pgTable('education', {
-    id: serial('id').notNull().primaryKey(),
+    id: text('id').notNull().primaryKey(),
     school: text('title').notNull(),
     degree_type: text('degree').notNull(),
     major: text('major').notNull(),
@@ -52,8 +52,6 @@ export const educationRelations = relations(education, ({ one }) => ({
 		references: [usersTable.email],
 	}),
 }));
-
-
 
 export const workExperience = pgTable('work_experience', {
   id: serial('id').notNull().primaryKey(),
@@ -77,7 +75,7 @@ export const workExperienceRelations = relations(workExperience, ({ one }) => ({
 }));
 
 export const project = pgTable('project', {
-    id: serial('id').notNull().primaryKey(),
+    id: text('id').notNull().primaryKey(),
     title: text('title').notNull(),
     description: text('description').notNull(),
     skills_used: json().default([]),
