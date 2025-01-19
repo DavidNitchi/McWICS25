@@ -11,13 +11,13 @@ export async function getUser(userEmail: string) {
   const ret = await db.query.usersTable.findFirst({
     where: eq(schema.usersTable.email, userEmail),
   });
-  return ret
+  return ret;
 }
 export async function getSkills(userEmail: string) {
-    //console.log("email", userEmail);
-    const userInfo = await getUser(userEmail);
-    //console.log("user skills", userInfo?.skills, );
-    return userInfo ? userInfo.skills as string[] : []
+  //console.log("email", userEmail);
+  const userInfo = await getUser(userEmail);
+  //console.log("user skills", userInfo?.skills, );
+  return userInfo ? (userInfo.skills as string[]) : [];
 }
 export async function getEducation(userEmail: string) {
   const ret = await db.query.education.findMany({
@@ -80,7 +80,7 @@ export async function addSkill(userEmail: string, skill: string) {
     where: eq(schema.usersTable.email, userEmail),
   });
   if (ret) {
-    ret.skills.push(skill);
+    (ret.skills as Array<string>).push(skill);
     await db
       .update(schema.usersTable)
       .set({
@@ -113,15 +113,15 @@ export async function addUser(user: NewUser) {
   return ret;
 }
 
-export async function addSkill(userEmail: string, newSkill: string){
-    const skills = await getSkills(userEmail);
-    skills.push(newSkill)
-    const ret =  await db.update(schema.usersTable)
-        .set({
-            skills:  skills
-        }).where(eq(schema.usersTable.email, userEmail))
-    return ret
-}
+// export async function addSkill(userEmail: string, newSkill: string){
+//     const skills = await getSkills(userEmail);
+//     skills.push(newSkill)
+//     const ret =  await db.update(schema.usersTable)
+//         .set({
+//             skills:  skills
+//         }).where(eq(schema.usersTable.email, userEmail))
+//     return ret
+// }
 type NewEducation = typeof schema.education.$inferInsert;
 export async function addEducation(education: NewEducation) {
   const ret = await db.insert(schema.education).values(education);
