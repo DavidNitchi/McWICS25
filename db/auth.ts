@@ -3,39 +3,40 @@
 import bcrypt from "bcrypt";
 import { z } from "zod";
 import { addUser } from "./query";
+import { createSession, deleteSession } from "@/db/session";
+import { redirect } from "next/navigation";
 
 export async function signup(state: FormState, formData: FormData) {
-  // Validate form fields
   const validatedFields = SignupFormSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     password: formData.get("password"),
   });
-  // If any form fields are invalid, return early
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
     };
   }
   const { name, email, password } = validatedFields.data;
-  // e.g. Hash the user's password before storing it
-  //const hashedPassword = await bcrypt.hash(password, 10);
-  const hashedPassword = "hello";
-
-  // 3. Insert the user into the database or call an Auth Library's API
+  const hashedPassword = await bcrypt.hash(password, 10);
   const data = await addUser({
     name: name,
     email: email,
     password: hashedPassword,
   });
-  
   const user = data;
-
   if (!user) {
     return {
       message: "An error occurred while creating your account.",
     };
   }
+  await createSession(email);
+  redirect("/profile");
+}
+
+export async function logout() {
+  deleteSession();
+  redirect("/login");
 }
 
 const SignupFormSchema = z.object({
@@ -65,3 +66,8 @@ type FormState =
       message?: string;
     }
   | undefined;
+
+export type SessionPayload = {
+  email: string;
+  expiresAt: Date;
+};
