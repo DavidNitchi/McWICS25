@@ -7,7 +7,7 @@ import { prompt } from '@/api/geminiAPI'
 import exp from "node:constants";
 
  export type expType = {
-  id: number;
+  id: string;
   school: string;
   degree_type: string;
   major: string;
@@ -16,7 +16,7 @@ import exp from "node:constants";
   userId: string;
 }[] | {
   description: string;
-  id: number;
+  id: string;
   title: string;
   userId: string;
 }[]
