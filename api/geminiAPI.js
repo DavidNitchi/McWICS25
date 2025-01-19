@@ -17,28 +17,28 @@ const schema = {
         type: SchemaType.ARRAY,
         description: "indices of work experience to include",
         items:{
-          type: SchemaType.INTEGER
+          type: SchemaType.NUMBER
         }
       },
       Education: {
         type: SchemaType.ARRAY,
         description: "indices of education to include",
         items:{
-          type: SchemaType.INTEGER
+          type: SchemaType.NUMBER
         }
       },
       Projects: {
         type: SchemaType.ARRAY,
         description: "indices of projects to include",
         items:{
-          type: SchemaType.INTEGER
+          type: SchemaType.NUMBER
         }
       },
       ECA: {
         type: SchemaType.ARRAY,
         description: "indices of ECAs to include",
         items:{
-          type: SchemaType.INTEGER
+          type: SchemaType.NUMBER
         }
       }
     }
@@ -57,7 +57,7 @@ export async function prompt(jobDescription, userInfo) {
   const promptText = 
     `Given the following job description: ${jobDescription}, 
     and the following information: ${userInfo},
-    Answer the following: Return the indices of the information to include in their respective categories, ranked in descending order of relevance.`;
+    Answer the following: Return a score for each information, between 0 and 1 (3 sig figs), representing the probability that the information is relevant to the job description, make sure to include all options`;
   return (await model.generateContent(promptText)).response.text();
 }
 
