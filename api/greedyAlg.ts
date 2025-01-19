@@ -30,7 +30,7 @@ export type expType =
 export async function fit(jobDescription:string) {
   const email = await verifySession();
   //console.log(email);
-  email.email = "m@gmail.com"
+  // email.email = "m@gmail.com"
   const userExps: expType[] = await getAllUserExperiences(email.email as string);
   //console.log("user exps:", userExps);
   const responses = await CVAPI(jobDescription, userExps);
