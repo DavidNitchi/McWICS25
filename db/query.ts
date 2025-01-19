@@ -42,6 +42,15 @@ export async function getExtracurricular(userEmail: string) {
   return ret
 }
 
+export async function getAllUserExperiences(userEmail:string){
+    let returns = [];
+    const funcs = [getEducation, getworkExperience, getProject, getExtracurricular]
+    for (let func of funcs){
+        let ret = await func(userEmail);
+        ret ? returns.push(ret) : returns.push([])
+    }
+    return returns
+}
 type NewUser = typeof schema.usersTable.$inferInsert;
 export async function addUser(user: NewUser) {
   const ret = await db.insert(schema.usersTable).values(user);

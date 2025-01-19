@@ -6,7 +6,8 @@ export const usersTable = pgTable('users_table', {
   //id: serial('id').primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull().unique().primaryKey(),
-  password: text('password').notNull()
+  password: text('password').notNull(),
+  skills: json().default([])
 });
 
 export const usersRelations = relations(usersTable, ({ many }) => ({
@@ -54,7 +55,7 @@ export const educationRelations = relations(education, ({ one }) => ({
 }));
 
 export const workExperience = pgTable('work_experience', {
-  id: serial('id').notNull().primaryKey(),
+  id: text('id').notNull().primaryKey(),
   title: text('title').notNull(),
   company: text('company'),
   description: text('description').notNull(),
