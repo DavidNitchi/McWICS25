@@ -1,4 +1,3 @@
-import React from 'react';
 import { Page, Text, View, Document, StyleSheet, pdf } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -76,94 +75,65 @@ const styles = StyleSheet.create({
 });
 
 
-const basic = {
-  name: 'John Doe',
-  email: 'john.dow@example.com',
-  skills: [],
-  // experience: [],
-  experience: [
-    {
-      title: 'Software Engineer',
-      company: '',
-      startDate: '',
-      endDate: 'Present',
-      description: 'Developed web applications using React and Node.js',
-      skills: [],
-    },
-    {
-      title: 'Software Engineer 2',
-      company: 'Example Inc.',
-      startDate: '2019',
-      endDate: 'Present',
-      description: 'Developed web applications using React and Node.js',
-      skills: ['React', 'Node.js', 'JavaScript'],
-    },
-  ],
-  projects: [],
-  education: [],
-  extraCurricular: [],
-}
-
-
-const exampleData = {
-  name: 'John Doe',
-  email: 'john.doe@example.com',
-  skills: [
-    { name: 'React' },
-    { name: 'Node.js' },
-    { name: 'JavaScript' },
-  ],
-  experience: [
-    {
-      title: 'Software Engineer',
-      company: 'Example Inc.',
-      startDate: '2019',
-      endDate: 'Present',
-      description: 'Developed web applications using React and Node.js',
-      skills: ['React', 'Node.js', 'JavaScript'],
-    },
-    {
-      title: 'Software Engineer 2',
-      company: 'Example Inc.',
-      startDate: '2019',
-      endDate: 'Present',
-      description: 'Developed web applications using React and Node.js',
-      skills: ['React', 'Node.js', 'JavaScript'],
-    },
-  ],
-  projects: [
-    {
-      title: 'Example Project',
-      startDate: '2020',
-      endDate: '2021',
-      descriptions: 'Developed web applications using React and Node.js',
-      skills: ['React', 'Node.js', 'JavaScript'],
-    },
-    {
-      title: 'Example Project 2',
-      startDate: '2020',
-      endDate: '2021',
-      descriptions: 'Developed web applications using React and Node.js',
-      skills: ['React', 'Node.js', 'JavaScript'],
-    },
-  ],
-  education: [
-    {
-      school: 'Example University',
-      degree: 'B.S.',
-      major: 'Computer Science',
-      startDate: '2015',
-      endDate: '2019',
-      skills: [],
-    }
-  ],
-  extraCurricular: [
-    {
-      title: 'Example Club',
-      description: 'President',
-    },
-  ]
-};
+// const exampleData = {
+//   name: 'John Doe',
+//   email: 'john.doe@example.com',
+//   skills: [
+//     { name: 'React' },
+//     { name: 'Node.js' },
+//     { name: 'JavaScript' },
+//   ],
+//   experience: [
+//     {
+//       title: 'Software Engineer',
+//       company: 'Example Inc.',
+//       startDate: '2019',
+//       endDate: 'Present',
+//       description: 'Developed web applications using React and Node.js',
+//       skills: ['React', 'Node.js', 'JavaScript'],
+//     },
+//     {
+//       title: 'Software Engineer 2',
+//       company: 'Example Inc.',
+//       startDate: '2019',
+//       endDate: 'Present',
+//       description: 'Developed web applications using React and Node.js',
+//       skills: ['React', 'Node.js', 'JavaScript'],
+//     },
+//   ],
+//   projects: [
+//     {
+//       title: 'Example Project',
+//       startDate: '2020',
+//       endDate: '2021',
+//       descriptions: 'Developed web applications using React and Node.js',
+//       skills: ['React', 'Node.js', 'JavaScript'],
+//     },
+//     {
+//       title: 'Example Project 2',
+//       startDate: '2020',
+//       endDate: '2021',
+//       descriptions: 'Developed web applications using React and Node.js',
+//       skills: ['React', 'Node.js', 'JavaScript'],
+//     },
+//   ],
+//   education: [
+//     {
+//       school: 'Example University',
+//       degree: 'B.S.',
+//       major: 'Computer Science',
+//       startDate: '2015',
+//       endDate: '2019',
+//       skills: [],
+//     }
+//   ],
+//   extraCurricular: [
+//     {
+//       title: 'Example Club',
+//       description: 'President',
+//     },
+//   ]
+// };
 
 interface Experience {
   title: string;
@@ -348,15 +318,201 @@ const MyDocument = ({ data }: { data: Data }) => (
 
 // export default Component;
 const Component = () => {
+  // const handleDownload = async () => {
+  //   const doc = <MyDocument data={basic} />;
+  //   const asPdf = pdf();
+  //   asPdf.updateContainer(doc);
+  //   const blob = await asPdf.toBlob();
+  //   const url = URL.createObjectURL(blob);
+  //   const a = document.createElement('a');
+  //   a.href = url;
+  //   a.download = 'cv.pdf';
+  //   a.click();
+  // };
+
+  const trimmedData = {
+    users: [
+      {
+        name: "John Doe",
+        email: "john.doe@example.com",
+        password: "securepassword",
+        skills: ["JavaScript", "React"],
+      },
+    ],
+    education: [
+      {
+        id: "edu1",
+        school: "McGill University",
+        degree_type: "Bachelors",
+        major: "Computer Science",
+        start_date: { year: 2020, month: 9, day: 1 },
+        end_date: { year: 2024, month: 6, day: 30 },
+        user_id: "john.doe@example.com",
+      },
+    ],
+    workExperience: [
+      {
+        id: "work1",
+        title: "Software Engineer Intern",
+        company: "Tech Corp",
+        description: "Worked on developing features.",
+        skills_used: ["Java", "Spring Boot"],
+        start_date: { year: 2023, month: 5, day: 15 },
+        end_date: { year: 2023, month: 6, day: 15 },
+        current_job: true,
+        user_id: "john.doe@example.com",
+      },
+      {
+        id: "work2",
+        title: "Computer Engineer Intern",
+        company: "Tech Corp",
+        description: "Worked on developing features.",
+        skills_used: ["Java", "Spring Boot"],
+        start_date: { year: 2023, month: 5, day: 15 },
+        end_date: null,
+        current_job: true,
+        user_id: "john.doe@example.com",
+      },
+    ],
+    project: [
+      {
+        id: "project1",
+        title: "Project 1",
+        start_date: { year: 2023, month: 5, day: 15 },
+        end_date: { year: 2023, month: 6, day: 15 },
+        descriptions: "Developed a web application.",
+        skills: ["React", "Node.js"],
+        user_id: "john.doe@example.com",
+      },
+    ],
+    extraCurricular: [
+      {
+        id: "extra1",
+        title: "Club 1",
+        description: "President",
+        user_id: "john.doe@example.com",
+      },
+    ],
+  };
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const formatDateToMonthYear = (dateObj: { year: any; month: any; }) => {
+    if (!dateObj) return '';
+    const { year, month } = dateObj;
+    return `${monthNames[month - 1]}, ${year}`; // Month is 1-indexed
+  };
+  const formatData = (data: { users: any[]; education: any[]; workExperience: any[]; project: any[]; extraCurricular: any[] }) => {
+    return {
+      users: data.users.map((user) => ({
+        ...user,
+        skills: user.skills || [],
+      })),
+      education: data.education.map((edu) => ({
+        ...edu,
+        start_date: formatDateToMonthYear(edu.start_date),
+        end_date: formatDateToMonthYear(edu.end_date),
+        user_id: edu.user_id || '',
+      })),
+      workExperience: data.workExperience.map((work) => ({
+        ...work,
+        start_date: formatDateToMonthYear(work.start_date),
+        end_date: work.end_date ? formatDateToMonthYear(work.end_date) : work.current_job ? 'Present' : '',
+        skills_used: work.skills_used || [],
+        user_id: work.user_id || '',
+        current_job: work.current_job ?? false,
+      })),
+      project: data.project.map((project) => ({
+        ...project,
+        start_date: formatDateToMonthYear(project.start_date),
+        end_date: formatDateToMonthYear(project.end_date),
+        skills: project.skills || [],
+        user_id: project.user_id || '',
+      })),
+      extraCurricular: data.extraCurricular.map((extra) => ({
+        ...extra,
+        user_id: extra.user_id || '',
+      })),
+    };
+  };
+
+  const formattedData = formatData(trimmedData);
+  const data: Data = {
+    name: formattedData.users[0].name,
+    email: formattedData.users[0].email,
+    skills: formattedData.users[0].skills.map((skill: string) => ({ name: skill })),
+    experience: formattedData.workExperience.map((work: {
+      title: string;
+      company: string;
+      start_date: string;
+      end_date: string;
+      description: string;
+      skills_used: string[];
+    }) => ({
+      title: work.title,
+      company: work.company,
+      startDate: work.start_date,
+      endDate: work.end_date,
+      description: work.description,
+      skills: work.skills_used,
+    })),
+    projects: formattedData.project.map((proj: {
+      title: string;
+      start_date: string;
+      end_date: string;
+      descriptions: string;
+      skills: string[];
+    }) => ({
+      title: proj.title,
+      startDate: proj.start_date,
+      endDate: proj.end_date,
+      descriptions: proj.descriptions,
+      skills: proj.skills,
+    })),
+    education: formattedData.education.map((edu: {
+      school: string;
+      degree_type: string;
+      major: string;
+      start_date: string;
+      end_date: string;
+    }) => ({
+      school: edu.school,
+      degree: edu.degree_type,
+      major: edu.major,
+      startDate: edu.start_date,
+      endDate: edu.end_date,
+      skills: [],
+    })),
+    extraCurricular: formattedData.extraCurricular.map((extra: {
+      title: string;
+      description: string;
+    }) => ({
+      title: extra.title,
+      description: extra.description,
+    })),
+  };
+
   const handleDownload = async () => {
-    const doc = <MyDocument data={basic} />;
+    if (!data) return;
+    const doc = <MyDocument data={data} />;
     const asPdf = pdf();
     asPdf.updateContainer(doc);
     const blob = await asPdf.toBlob();
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'example.pdf';
+    a.download = 'bcv.pdf';
     a.click();
   };
 
