@@ -1,6 +1,7 @@
-import { getAllUserExperiences, getEducation, getExtracurricular, getProject, getworkExperience } from "@/db/query";
+import { getAllUserExperiences, getEducation, getExtracurricular, getProject, getUser, getworkExperience } from "@/db/query";
 import CVAPI from "./cvAPI";
 import { verifySession } from "@/db/dal";
+import { extraCurricular } from "@/db/schema";
 
 type NumberEntry = {
   key: number;
@@ -109,9 +110,27 @@ for (const [key, values] of scoreData) {
     }
   }
   console.log("kept values", kept_vals);
-  let onCV : expType[] = []
+
+  let onCV : expType[][] = [[], [], [], []];
   for (let val of kept_vals){
-    onCV.push(userExps[val.key][val.index]);
+    onCV[[val.key]].push(userExps[val.key][val.index]);
   }
-  return onCV
+  const formatExperiences = (userExperiences: expType[][]) => {
+    const formatSection = (section: any[]) =>
+      section.map((item, index) => ({
+        index,
+        ...((({ id, userId, ...rest }) => rest)(item)),
+      }));
+
+    return [
+      formatSection(onCV[0] || []),
+      formatSection(onCV[1] || []),
+      formatSection(onCV[2] || []),
+      formatSection(onCV[3] || []),
+      //userSkills,
+    ];
+  };
+  const userInfo = await getUser(mail);
+  const formatted = formatExperiences(onCV)
+  return {users: userInfo, education: formatted[0], workExperience: formatted[1], project:formatted[2], extraCurricular: formatted[3]}
 }
