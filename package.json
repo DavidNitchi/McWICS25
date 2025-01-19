@@ -11,6 +11,55 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
+    "@radix-ui/react-accordion": "^1.2.2",
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@types/bcrypt": "^5.0.2",
+    "@vercel/postgres": "^0.10.0",
+    "bcrypt": "^5.1.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.38.4",
+    "google": "^2.1.0",
+    "jose": "^5.9.6",
+    "lucide-react": "^0.473.0",
+    "next": "15.1.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.30.2",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.5",
+    "postcss": "^8",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
+
+{
+  "name": "mcwics25",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "flask-dev": "FLASK_DEBUG=1 && python -m flask --app api/index run -p 5328",
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "@react-pdf/renderer": "^4.1.6",
     "@vercel/postgres": "^0.10.0",
     "dotenv": "^16.4.7",
