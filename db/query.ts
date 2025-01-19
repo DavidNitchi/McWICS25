@@ -40,6 +40,34 @@ export async function getProject(userEmail: string) {
   return ret;
 }
 
+export async function getProjectById(projectId: string) {
+  const ret = await db.query.project.findFirst({
+    where: eq(schema.project.id, projectId),
+  });
+  return ret;
+}
+
+export async function getWorkById(workId: string) {
+  const ret = await db.query.workExperience.findFirst({
+    where: eq(schema.workExperience.id, workId),
+  });
+  return ret;
+}
+
+export async function getEducationById(educationId: string) {
+  const ret = await db.query.education.findFirst({
+    where: eq(schema.education.id, educationId),
+  });
+  return ret;
+}
+
+export async function getExtraCurricularById(extraCurricularId: string) {
+  const ret = await db.query.extraCurricular.findFirst({
+    where: eq(schema.extraCurricular.id, extraCurricularId),
+  });
+  return ret;
+}
+
 export async function getExtracurricular(userEmail: string) {
   const ret = await db.query.extraCurricular.findMany({
     where: eq(schema.extraCurricular.userId, userEmail),
@@ -47,14 +75,37 @@ export async function getExtracurricular(userEmail: string) {
   return ret;
 }
 
-export async function getAllUserExperiences(userEmail:string){
-    let returns = [];
-    const funcs = [getEducation, getworkExperience, getProject, getExtracurricular]
-    for (let func of funcs){
-        let ret = await func(userEmail);
-        ret ? returns.push(ret) : returns.push([])
-    }
-    return returns
+export async function addSkill(userEmail: string, skill: string) {
+  const ret = await db.query.usersTable.findFirst({
+    where: eq(schema.usersTable.email, userEmail),
+  });
+  if (ret) {
+    ret.skills.push(skill);
+    await db
+      .update(schema.usersTable)
+      .set({
+        name: ret.name,
+        email: ret.email,
+        password: ret.password,
+        skills: ret.skills,
+      })
+      .where(eq(schema.usersTable.email, ret.email));
+  }
+}
+
+export async function getAllUserExperiences(userEmail: string) {
+  let returns = [];
+  const funcs = [
+    getEducation,
+    getworkExperience,
+    getProject,
+    getExtracurricular,
+  ];
+  for (let func of funcs) {
+    let ret = await func(userEmail);
+    ret ? returns.push(ret) : returns.push([]);
+  }
+  return returns;
 }
 type NewUser = typeof schema.usersTable.$inferInsert;
 export async function addUser(user: NewUser) {
@@ -74,7 +125,7 @@ export async function addSkill(userEmail: string, newSkill: string){
 type NewEducation = typeof schema.education.$inferInsert;
 export async function addEducation(education: NewEducation) {
   const ret = await db.insert(schema.education).values(education);
-  return ret;
+  //return ret;
 }
 export async function editEducation(education: NewEducation) {
   const ret = await db
@@ -89,13 +140,13 @@ export async function editEducation(education: NewEducation) {
       userId: education.userId,
     })
     .where(eq(schema.education.id!, education.id!));
-  return ret;
+  //return ret;
 }
 
 type NewProject = typeof schema.project.$inferInsert;
 export async function addProject(project: NewProject) {
   const ret = await db.insert(schema.project).values(project);
-  return ret;
+  //return ret;
 }
 export async function editProject(project: NewProject) {
   const ret = await db
@@ -110,12 +161,12 @@ export async function editProject(project: NewProject) {
       userId: project.userId,
     })
     .where(eq(schema.project.id!, project.id!));
-  return ret;
+  //return ret;
 }
 type NewWork = typeof schema.workExperience.$inferInsert;
 export async function addWorkExperience(work: NewWork) {
   const ret = await db.insert(schema.workExperience).values(work);
-  return ret;
+  //return ret;
 }
 export async function editWork(work: NewWork) {
   const ret = await db
@@ -127,15 +178,16 @@ export async function editWork(work: NewWork) {
       skills_used: work.skills_used,
       start_date: work.start_date,
       end_date: work.start_date,
+      current_job: work.current_job,
       userId: work.userId,
     })
     .where(eq(schema.workExperience.id!, work.id!));
-  return ret;
+  //return ret;
 }
 type NewExtraCurricular = typeof schema.extraCurricular.$inferInsert;
 export async function addExtraCurricular(activity: NewExtraCurricular) {
   const ret = await db.insert(schema.extraCurricular).values(activity);
-  return ret;
+  //return ret;
 }
 export async function editExtraCurricular(activity: NewExtraCurricular) {
   const ret = await db
@@ -147,5 +199,5 @@ export async function editExtraCurricular(activity: NewExtraCurricular) {
       userId: activity.userId,
     })
     .where(eq(schema.extraCurricular.id!, activity.id!));
-  return ret;
+  //return ret;
 }

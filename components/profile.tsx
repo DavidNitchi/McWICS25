@@ -13,7 +13,7 @@ import {
   getEducation,
   getExtracurricular,
 } from "../db/query";
-import AddForm from "./addForm";
+import AddForm from "./profileSections/projectForm";
 
 export default function UserProfile() {
   const [uInfo, setUInfo] = useState<
@@ -159,75 +159,73 @@ export default function UserProfile() {
 
   return (
     //console.log(workExperiences.length > 0),
-    (
-      <div className="p-4 max-w-6xl mx-auto flex gap-4 justify-between w-full">
-        <div className="w-1/3 h-full space-y-4">
-          {/* User Information Section with title at top */}
-          <h2 className="text-3xl font-bold mb-6 font-mono h-8">User Info</h2>
-          {uInfo && (
-            <UserInfo
-              userInfo={uInfo}
-              toggleUserInfoPopup={toggleUserInfoPopup}
-            />
-          )}
-        </div>
-
-        <div className="flex-1 space-y-4">
-          <div className="relative flex justify-between">
-            <button className="font-mono px-4 py-2"></button>
-            {/* + button to add a section */}
-            <button
-              className="font-mono px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 self-end justify-end"
-              onClick={toggleDropdown}
-            >
-              Add Section
-            </button>
-            {/* Dropdown menu */}
-            {isOpen && (
-              <div className="absolute right-0 mt-10 w-48 bg-white border rounded shadow-lg">
-                <ul className="py-2">
-                  {Object.entries(mapping).map(([key, value]) => (
-                    <DropdownButton
-                      key={key}
-                      toggleSection={() => value()}
-                      toggleDropdown={toggleDropdown}
-                      text={key}
-                    />
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-
-          {/* Other sections will fall into place */}
-          {hasProject && (
-            <ProjectInfo
-              projects={projects}
-              toggleProjectInfoPopup={toggleProjectInfoPopup}
-            />
-          )}
-          {hasWork && (
-            <Works
-              works={workExperiences}
-              toggleWorkInfoPopup={toggleWorkInfoPopup}
-            />
-          )}
-          {hasEducation && (
-            <Education
-              educations={education}
-              toggleEducationInfoPopup={toggleEducationInfoPopup}
-            />
-          )}
-          {hasExtra && (
-            <Extracurriculars
-              extraCur={extracurriculars}
-              toggleExtraCurInfoPopup={toggleExtraCurInfoPopup}
-            />
-          )}
-
-          <AddForm />
-        </div>
+    <div className="p-4 max-w-6xl mx-auto flex gap-4 justify-between w-full">
+      <div className="w-1/3 h-full space-y-4">
+        {/* User Information Section with title at top */}
+        <h2 className="text-3xl font-bold mb-6 font-mono h-8">User Info</h2>
+        {uInfo && (
+          <UserInfo
+            userInfo={uInfo}
+            // toggleUserInfoPopup={toggleUserInfoPopup}
+          />
+        )}
       </div>
-    )
+
+      <div className="flex-1 space-y-4">
+        <div className="relative flex justify-between">
+          <button className="font-mono px-4 py-2"></button>
+          {/* + button to add a section */}
+          <button
+            className="font-mono px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 self-end justify-end"
+            onClick={toggleDropdown}
+          >
+            Add Section
+          </button>
+          {/* Dropdown menu */}
+          {isOpen && (
+            <div className="absolute right-0 mt-10 w-48 bg-white border rounded shadow-lg">
+              <ul className="py-2">
+                {Object.entries(mapping).map(([key, value]) => (
+                  <DropdownButton
+                    key={key}
+                    toggleSection={() => value()}
+                    toggleDropdown={toggleDropdown}
+                    text={key}
+                  />
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Other sections will fall into place */}
+        {hasProject && (
+          <ProjectInfo
+            projects={projects}
+            toggleProjectInfoPopup={toggleProjectInfoPopup}
+          />
+        )}
+        {hasWork && (
+          <Works
+            works={workExperiences}
+            toggleWorkInfoPopup={toggleWorkInfoPopup}
+          />
+        )}
+        {hasEducation && (
+          <Education
+            educations={education}
+            toggleEducationInfoPopup={toggleEducationInfoPopup}
+          />
+        )}
+        {hasExtra && (
+          <Extracurriculars
+            extraCur={extracurriculars}
+            toggleExtraCurInfoPopup={toggleExtraCurInfoPopup}
+          />
+        )}
+
+        <AddForm />
+      </div>
+    </div>
   );
 }
