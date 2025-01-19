@@ -4,6 +4,8 @@ import { verifySession } from "@/db/dal";
 import { useState, useEffect, use } from "react";
 import { getAllUserExperiences, getSkills } from "@/db/query";
 import { prompt } from "@/api/geminiAPI";
+import Component from '@/components/reactToPDF'
+
 //import CVAPI from "@/api/cvAPI";
 import { fit } from "@/api/greedyAlg";
 export default function Home() {

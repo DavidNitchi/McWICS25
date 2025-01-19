@@ -28,10 +28,10 @@ export type expType =
 
 export async function fit(jobDescription:string) {
   const email = await verifySession();
-  console.log(email);
+  //console.log(email);
   email.email = "m@gmail.com"
   const userExps: expType[] = await getAllUserExperiences(email.email as string);
-  console.log("user exps:", userExps);
+  //console.log("user exps:", userExps);
   const responses = await CVAPI(jobDescription, userExps);
   const mail = email.email as string;
   const individualExps = [await getEducation(mail),await getworkExperience(mail), await getProject(mail), await getExtracurricular(mail) ]
@@ -53,8 +53,8 @@ export async function fit(jobDescription:string) {
   // let eduSection = false;
   // let result = { Education: [], Experience: [], Projects: [], ECA: [] };
 
-  console.log("STARTING");
-  console.log("scoreData:", scoreData);
+  //console.log("STARTING");
+  //console.log("scoreData:", scoreData);
   // create a new array to store all the values in descending order
   // create a new array to store all the values in descending order
   let results : NumberEntry[] = [];
@@ -68,7 +68,7 @@ for (const [key, values] of scoreData) {
 // Sort the list in descending order of the value
   results.sort((a, b) => b.value - a.value);
 
-  console.log(results);
+  //console.log(results);
   // sort the values in descending order
   //allValues.sort((a, b) => b.maxValue - a.maxValue);
   //console.log("All Values:", allValues);
@@ -78,7 +78,6 @@ for (const [key, values] of scoreData) {
   let kept_vals = [];
   let used_categories: number[] = [];
   let addLength = 0;
-  let catStr = "";
   let totalLen = 0;
   for (let entry of results) {
     skills_len = 0;
@@ -110,7 +109,7 @@ for (const [key, values] of scoreData) {
     }
   }
   console.log("kept values", kept_vals);
-  let onCV : expType = []
+  let onCV : expType[] = []
   for (let val of kept_vals){
     onCV.push(userExps[val.key][val.index]);
   }
