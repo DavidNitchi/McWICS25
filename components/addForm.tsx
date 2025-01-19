@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useActionState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { addProject } from "@/db/query";
@@ -39,18 +40,43 @@ const AddForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(formData);
     try {
+      // Ensure all fields are strings and properly formatted
       const object: NewProject = {
-        ...formData,
-        start_date: formData.start_date.split("-").join(","),
-        end_date: formData.end_date.split("-").join(","),
-        userId: email,
+        title: String(formData.title || ""),
+        description: String(formData.description || ""),
+        userId: String(email || ""),
         id: uuidv4(),
+        skills_used: String(formData.skills_used || ""),
+        start_date: formData.start_date
+          ? formData.start_date.split("-").join(",")
+          : "",
+        end_date: formData.end_date
+          ? formData.end_date.split("-").join(",")
+          : "",
       };
+
+      // Validate required fields
+      if (!object.title || !object.description) {
+        throw new Error("Title and description are required");
+      }
+
       await addProject(object);
       console.log("Project added successfully");
+
+      // Clear form after successful submission
+      setFormData({
+        title: "",
+        description: "",
+        userId: "",
+        id: "",
+        skills_used: "",
+        start_date: "",
+        end_date: "",
+      });
     } catch (error) {
-      console.error("Error adding project: ", error);
+      console.log(error);
     }
   };
 

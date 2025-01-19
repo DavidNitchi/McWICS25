@@ -1,6 +1,7 @@
 import React from 'react';
 import NavButton from './Buttons/navButton';
 import Link from "next/link";
+import { logout } from '@/db/auth';
 
 const navBar: React.FC = () => {
     return (
@@ -8,9 +9,9 @@ const navBar: React.FC = () => {
             <Link className='text-3xl font-bold' href="/">BCV</Link>
             <ul className='flex self-end space-x-9'>
                 <NavButton text="profile" link="/profile" />
-                <NavButton text="cv creation" link="/cvCreation" />
-                <NavButton text="new jobs today" link="/newJobs" />
-                {/* <NavButton text="logout" link="#" onClick={logout} />  */}
+                <NavButton text="cv_creation" link="/cvCreation" />
+                <NavButton text="new_jobs_today" link="/newJobs" />
+                <NavButton text="logout" link="#" onClick={logout} /> 
             </ul>
       </nav>
     )
