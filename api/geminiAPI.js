@@ -31,7 +31,7 @@ const schema = {
         type: SchemaType.ARRAY,
         description: "indices of projects to include",
         items:{
-          type: SchemaType.NUMBER
+          type: SchemaType.STRING
         }
       },
       ECA: {
@@ -56,15 +56,22 @@ const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash-001",
   generationConfig: {
     responseMimeType: "application/json",
-    responseSchema: schema,
+    //responseSchema: schema,
   },
 });
 
+export async function reset(){
+  return (await model.generateContent("Clear the context.")).response.text()
+}
+
 export async function prompt(jobDescription, userInfo) {
-  const promptText = 
-    `Given the following job description: ${jobDescription}, 
-    and the following information: ${userInfo},
-    Answer the following: For each entry in each of the categories, output a value between 0 and 1, representing the probability that the information is relevant to the job description, make sure to include a score for each entry in every category!`;
+  console.log("userInfo", userInfo)
+  const promptText = `
+  Given the job description ${jobDescription}, For each of the entries in ${JSON.stringify(userInfo)}, Give it a score between 0 and 1, based on the probability of it being relevant to the job, as well the reasoning behind the score
+  Output format for each entry: 
+  score: [Score]
+  Do not output anything besides the score for the entry
+  `
   return (await model.generateContent(promptText)).response.text();
 }
 
