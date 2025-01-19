@@ -47,16 +47,18 @@ Other
 
 Heights
 
-Full height of paper 842 (NOT SURE MIGHT BE WRONG)
+Full height of paper 842 (1096) (NOT SURE MIGHT BE WRONG)
 
 Start of sections 163
 
-Section Title height: 199-163
+Section Title height: 199-163 (36)
 
-Experience header: 221-199
+Experience header: 221-199 (22)
 
-Bullet point: 239-229
-width: 76
+Bullet point: 239-229 (10)
+width: 76 chars
+
+46 for skills
 
 End of paper:1305
 

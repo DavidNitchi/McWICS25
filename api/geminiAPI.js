@@ -64,7 +64,7 @@ export async function prompt(jobDescription, userInfo) {
   const promptText = 
     `Given the following job description: ${jobDescription}, 
     and the following information: ${userInfo},
-    Answer the following: Return a score for each information, between 0 and 1 (3 sig figs), representing the probability that the information is relevant to the job description, make sure to include all options`;
+    Answer the following: For each entry in each of the categories, output a value between 0 and 1, representing the probability that the information is relevant to the job description, make sure to include a score for each entry in every category!`;
   return (await model.generateContent(promptText)).response.text();
 }
 

@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { prompt } from '@/api/geminiAPI'
 import { render } from '@/api/puppeteer'
+import { fit } from '@/api/greedyAlg'
 import Component from '@/components/reactToPDF'
 
 export default function Page() {
@@ -25,6 +26,7 @@ export default function Page() {
         {reply && <p>{reply}</p>}
       </div>
       <Component></Component>
+      <button className="bg-green-400 text-white p-4 border rounded-md border-black hover:text-xl" onClick={() => fit()}>Test!</button>
     </div>
   );
 }
