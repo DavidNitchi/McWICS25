@@ -40,6 +40,13 @@ const schema = {
         items:{
           type: SchemaType.NUMBER
         }
+      },
+      Skills: {
+        type: SchemaType.ARRAY,
+        description: "indices of Skills to include",
+        items:{
+          type: SchemaType.NUMBER
+        }
       }
     }
   }

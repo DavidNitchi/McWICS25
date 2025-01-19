@@ -2,7 +2,7 @@
 
 import bcrypt from "bcrypt";
 import { z } from "zod";
-import { addUser, getUser, isValidUser } from "./query";
+import { addUser, getUser } from "./query";
 import { createSession, deleteSession } from "@/db/session";
 import { redirect } from "next/navigation";
 

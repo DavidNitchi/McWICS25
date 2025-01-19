@@ -2,7 +2,7 @@
 import NavBar from "@/components/navBar";
 import { verifySession } from "@/db/dal";
 import { useState, useEffect } from "react";
-import { getAllUserExperiences } from "@/db/query";
+import { getAllUserExperiences, getSkills } from "@/db/query";
 import { prompt } from '@/api/geminiAPI'
 import exp from "node:constants";
 
@@ -24,6 +24,7 @@ import exp from "node:constants";
 export default function Home() {
   
   const [email, setEmail] = useState("");
+  //Calling verify session to redirect to login
   useEffect(() => {
     // Define an asynchronous function to call the imported function
     const getData = async () => {
@@ -35,15 +36,19 @@ export default function Home() {
       }
     };
 
-    getData(); // Call the async function inside useEffect
-  }, []);
+
+     getData(); // Call the async function inside useEffect
+   }, []);
   const [userExperiences, setUserExperiences] = useState<(expType)[]>();
+  const [userSkills, setUserSkills] = useState<(string)[]>();
+
   useEffect(() => {
     // Define an asynchronous function to call the imported function
     const getData = async () => {
       try {
         const result = await verifySession(); // Call the imported function
-        setEmail(result.email as string); // Set the variable with the output
+        //console.log(result, "result");
+        //setEmail(result.email as string); // Set the variable with the output
         await getAllUserExperiences(result.email as string).then((response) => {
           if (response)
             setUserExperiences(response)
@@ -54,6 +59,25 @@ export default function Home() {
       }
     };
 
+    getData(); // Call the async function inside useEffect
+  }, []);
+
+  useEffect(() => {
+    // Define an asynchronous function to call the imported function
+    const getData = async () => {
+      try {
+        const result = await verifySession(); // Call the imported function
+        //setEmail(result.email as string); // Set the variable with the output
+        //console.log("calling getSkills")
+        await getSkills(result.email as string).then((response) => {
+          if (response)
+            setUserSkills(response)
+            console.log(response)
+        })
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     getData(); // Call the async function inside useEffect
   }, []);
   //console.log(email)
@@ -89,14 +113,17 @@ export default function Home() {
       let indexedClone = {index:ind, ...clone}
       extrasFormatted.push(indexedClone)
     }
-    return [educationFormatted, workFormatted, projectFormatted, extrasFormatted]
+    //console.log("userSkills:", userSkills);
+    return [educationFormatted, workFormatted, projectFormatted, extrasFormatted, userSkills]
   }
   const [inputText, setInputText] = useState("");
   const handleGenerateCV = () => {
     //console.log(inputText)
     //console.log(userExperiences)
     let expList = formatExperiences();
-    const returnedCV = prompt(inputText, `{Education: ${expList[0]}, WorkExperiences: ${expList[1]}, Projects: ${expList[2]},ExtraCurriculars: ${expList[3]}`)
+    console.log(expList);
+    //console.log(userSkills, "user skills");
+    const returnedCV = prompt(inputText, `{Education: ${expList[0]}, WorkExperiences: ${expList[1]}, Projects: ${expList[2]}, ExtraCurriculars: ${expList[3]}, Skills:${expList[4]}`);
     console.log(returnedCV)
     alert("Generating CV with the following text:\n" + inputText);
     // Add your CV generation logic here

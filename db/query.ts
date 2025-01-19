@@ -11,22 +11,14 @@ export async function getUser(userEmail: string) {
   const ret = await db.query.usersTable.findFirst({
     where: eq(schema.usersTable.email, userEmail),
   });
-  return ret;
+  return ret
 }
-
-export async function isValidUser(data: { email: string; password: string }) {
-  console.log(data);
-  const response = await db.query.usersTable.findFirst({
-    where: and(
-      eq(schema.usersTable.email, data.email),
-      eq(schema.usersTable.password, data.password)
-    ),
-  });
-  return response;
+export async function getSkills(userEmail: string) {
+    //console.log("email", userEmail);
+    const userInfo = await getUser(userEmail);
+    //console.log("user skills", userInfo?.skills, );
+    return userInfo ? userInfo.skills as string[] : []
 }
-
-// $2b$10$4ZbLYxykyElTo//TIqXOQ..WnMZCnnzYZfHHiTYhZEnz6BhnyimpC
-
 export async function getEducation(userEmail: string) {
   const ret = await db.query.education.findMany({
     where: eq(schema.education.userId, userEmail),
@@ -70,6 +62,15 @@ export async function addUser(user: NewUser) {
   return ret;
 }
 
+export async function addSkill(userEmail: string, newSkill: string){
+    const skills = await getSkills(userEmail);
+    skills.push(newSkill)
+    const ret =  await db.update(schema.usersTable)
+        .set({
+            skills:  skills
+        }).where(eq(schema.usersTable.email, userEmail))
+    return ret
+}
 type NewEducation = typeof schema.education.$inferInsert;
 export async function addEducation(education: NewEducation) {
   const ret = await db.insert(schema.education).values(education);
