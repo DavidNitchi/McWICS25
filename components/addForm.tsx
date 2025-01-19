@@ -1,39 +1,33 @@
-import Form from "next/form";
-import {
-  addProject,
-  addEducation,
-  addExtraCurricular,
-  addWorkExperience,
-} from "@/db/query";
+import React, { useState, useEffect, useActionState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useEffect, useState } from "react";
+import { addProject } from "@/db/query";
 import { verifySession } from "@/db/dal";
+import * as schema from "@/db/schema";
 
-export default function AddProjectForm() {
+type NewProject = typeof schema.project.$inferInsert;
+const AddForm = () => {
   const [email, setEmail] = useState("");
   useEffect(() => {
-    // Define an asynchronous function to call the imported function
     const getData = async () => {
       try {
-        const result = await verifySession(); // Call the imported function
-        setEmail(result.email as string); // Set the variable with the output
+        const result = await verifySession();
+        console.log("result:", result);
+        setEmail(result.email as string);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-  }),
-    [];
-  
+    getData();
+  }, []);
 
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     userId: "",
-    id: uuidv4(),
+    id: "",
     skills_used: "",
     start_date: "",
     end_date: "",
-    userId: email;
   });
 
   const handleChange = (
@@ -43,19 +37,37 @@ export default function AddProjectForm() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log("penis");
-      addProject({
+      const object: NewProject = {
         ...formData,
         start_date: formData.start_date.split("-").join(","),
         end_date: formData.end_date.split("-").join(","),
-      });
+        userId: email,
+        id: uuidv4(),
+      };
+      await addProject(object);
+      console.log("Project added successfully");
     } catch (error) {
       console.error("Error adding project: ", error);
     }
   };
+
+  // async function handleSubmit2(state: any, formData: FormData) {
+  //   console.log();
+  //   const object: NewProject = {
+  //     title: formData.get("title"),
+  //     description: formData.get("description"),
+  //     userId: email,
+  //     id: uuidv4(),
+  //     skills_used: formData.get("skills_used"),
+  //     start_date: formData.get("start_date").split("-").join(","),
+  //     end_date: formData.get("end_date").split("-").join(","),
+  //   };
+  // }
+
+  // const [state, action, pending] = useActionState(handleSubmit2, undefined);
 
   return (
     <form
@@ -70,6 +82,7 @@ export default function AddProjectForm() {
         value={formData.title}
         onChange={handleChange}
         className="border p-2 rounded"
+        required
       />
 
       <label htmlFor="description">Description</label>
@@ -119,4 +132,6 @@ export default function AddProjectForm() {
       </button>
     </form>
   );
-}
+};
+
+export default AddForm;

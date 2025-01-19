@@ -1,10 +1,12 @@
+"use server";
+
 import NavBar from "@/components/navBar";
 import User from "@/components/profile";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="">
-      <NavBar /> 
+      <NavBar />
       <User />
     </div>
   );

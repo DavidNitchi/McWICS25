@@ -1,4 +1,4 @@
-import "server-only";
+'use server';
 
 import { cookies } from "next/headers";
 import { decrypt } from "./session";
@@ -23,7 +23,7 @@ export const getUserCache = cache(async () => {
 
   try {
     const data = await getUser(session.email as string);
-    const user = data;
+    const user = { ...data }; // Ensure user is a plain object
     return user;
   } catch (error) {
     console.log("Failed to fetch user");

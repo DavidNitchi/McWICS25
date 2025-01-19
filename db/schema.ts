@@ -54,7 +54,7 @@ export const educationRelations = relations(education, ({ one }) => ({
 }));
 
 export const workExperience = pgTable('work_experience', {
-  id: serial('id').notNull().primaryKey(),
+  id: text('id').notNull().primaryKey(),
   title: text('title').notNull(),
   company: text('company'),
   description: text('description').notNull(),
