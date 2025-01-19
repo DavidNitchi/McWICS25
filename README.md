@@ -43,3 +43,20 @@ Bachelor’s
 Master’s
 Doctorate
 Other
+
+
+Heights
+
+Full height of paper 842 (NOT SURE MIGHT BE WRONG)
+
+Start of sections 163
+
+Section Title height: 199-163
+
+Experience header: 221-199
+
+Bullet point: 239-229
+width: 76
+
+End of paper:1305
+
