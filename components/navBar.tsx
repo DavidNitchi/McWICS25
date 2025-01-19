@@ -11,8 +11,8 @@ const navBar: React.FC = () => {
       </Link>
       <ul className="flex space-x-9 items-center">
         <NavButton text="profile" link="/profile" />
-        <NavButton text="cv_creation" link="/cvCreation" />
-        <NavButton text="new_jobs_today" link="/newJobs" />
+        <NavButton text="cv_generator" link="/cvCreation" />
+        {/* <NavButton text="pdf_creation" link="/generate" /> */}
         <NavButton text="logout" link="#" onClick={logout} />
       </ul>
     </nav>

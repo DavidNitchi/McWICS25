@@ -9,7 +9,6 @@ import { prompt } from "@/api/geminiAPI";
 import { data } from "@/db/dummyData"; // Dummy data for jobs carousel
 
 import Component from '@/components/reactToPDF'
-import { format } from "path";
 
 export type expType =
   | {

@@ -1,4 +1,5 @@
 import { Page, Text, View, Document, StyleSheet, pdf, PDFViewer } from '@react-pdf/renderer';
+import { desc } from 'drizzle-orm';
 
 const styles = StyleSheet.create({
   page: {
@@ -149,7 +150,7 @@ const MyDocument = ({ data }: { data: Data }) => (
                 {/* comma separated skills */}
                 {exp.skills && exp.skills.length > 0 && (
                   <Text style={styles.text}>
-                    • Skills: {exp.skills.join(', ')}
+                    {/* • Skills: {exp.skills.join(', ')} */}
                   </Text>
                 )}
               </View>
@@ -179,7 +180,7 @@ const MyDocument = ({ data }: { data: Data }) => (
                 {/* comma separated skills */}
                 {project.skills && project.skills.length > 0 && (
                   <Text style={styles.text}>
-                    • Skills: {project.skills.join(', ')}
+                    {/* • Skills: {project.skills.join(', ')} */}
                   </Text>
                 )}
               </View>
@@ -372,6 +373,7 @@ const Component = ({trimmed}: {trimmed: { users: any[]; education: any[] | null;
         ...project,
         start_date: formatDateToMonthYear(project.start_date),
         end_date: formatDateToMonthYear(project.end_date),
+        descriptions: project.description || '',
         skills: project.skills || [],
         user_id: project.user_id || '',
       })),

@@ -33,7 +33,7 @@ const ProjectInfo: React.FC<ProjectsProps> = ({ projects, modal }) => {
         ))}
       </ul>
       <button
-        className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+        className="mt-4 px-4 py-2 bg-black text-white rounded hover:bg-zinc-400"
         onClick={() => modal(["projects", ""])}
       >
         Add Project

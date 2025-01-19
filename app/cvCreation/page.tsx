@@ -4,13 +4,44 @@ import { verifySession } from "@/db/dal";
 import { useState, useEffect, use } from "react";
 import { getAllUserExperiences, getSkills } from "@/db/query";
 import { prompt } from "@/api/geminiAPI";
+
 import Component from '@/components/reactToPDF'
+
 
 //import CVAPI from "@/api/cvAPI";
 import { fit } from "@/api/greedyAlg";
+
+export type expType =
+  | {
+      id: string;
+      school: string;
+      degree_type: string;
+      major: string;
+      start_date: string | null;
+      end_date: string | null;
+      userId: string;
+    }[]
+  | {
+      description: string;
+      id: string;
+      title: string;
+      userId: string;
+    }[];
+
 export default function Home() {
   const [email, setEmail] = useState("m@gmail.com");
+  const [genCV, setGenCV] = useState(false);
   const [inputText, setInputText] = useState<string>("");
+  const [userExperiences, setUserExperiences] = useState<expType[]>([]);
+  const [userSkills, setUserSkills] = useState<string[]>([]);
+
+  const [responseState, setResponseState] = useState<{
+    users: { name: string; email: string; password: string; skills: unknown }[] | undefined;
+    education: any[];
+    workExperience: any[];
+    project: any[];
+    extraCurricular: any[];
+  } | null>(null);
 
   function greedyAlg(inputText: string) {
     throw new Error("Function not implemented.");
@@ -115,6 +146,22 @@ export default function Home() {
   // }, [buttonClick]);
   // console.log(buttonClick);
 
+  const formatExperiences = (userExperiences: expType[]) => {
+    const formatSection = (section: any[]) =>
+      section.map((item, index) => ({
+        index,
+        ...((({ id, userId, ...rest }) => rest)(item)),
+      }));
+
+    return [
+      formatSection(userExperiences[0] || []),
+      formatSection(userExperiences[1] || []),
+      formatSection(userExperiences[2] || []),
+      formatSection(userExperiences[3] || []),
+      userSkills,
+    ];
+  };
+
   return (
     <div className="">
       <NavBar />
@@ -130,14 +177,32 @@ export default function Home() {
           <button
             onClick={async () => {
               const response = await fit(inputText);
-              console.log(response);
-              
+              console.log(response); setGenCV(true);
+              setResponseState(response);
+
+              // formatExperiences(responseState)
+              // const trimmedData = {
+              //   users: [
+              //     {
+              //       name: name,
+              //       email: email,
+              //       skills: userSkills ? userSkills : null,
+              //     },
+              //   ],
+              //   education: formatExperiences()[0].length > 0 ? formatExperiences()[0] : null,
+              //   workExperience: formatExperiences()[1].length > 0 ? formatExperiences()[1] : null,
+              //   project: formatExperiences()[2].length > 0 ? formatExperiences()[2] : null,
+              //   extraCurricular: formatExperiences()[3].length > 0 ? formatExperiences()[3] : null,
+              // }
             }}
+            
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md"
           >
             Generate CV
           </button>
-          {/* {reply && <div> {reply}</div>} */}
+          <div className="w-2/3 text-center flex-col h-full mx-auto mb-10 mt-10">
+            {genCV && responseState && <Component trimmed={{ ...responseState, users: responseState.users ? [responseState.users] : [] }} />}
+          </div>
         </div>
       </div>
     </div>
