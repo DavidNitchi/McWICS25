@@ -1,4 +1,4 @@
-import { Page, Text, View, Document, StyleSheet, pdf } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, pdf, PDFViewer } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   page: {
@@ -74,66 +74,6 @@ const styles = StyleSheet.create({
   }
 });
 
-
-// const exampleData = {
-//   name: 'John Doe',
-//   email: 'john.doe@example.com',
-//   skills: [
-//     { name: 'React' },
-//     { name: 'Node.js' },
-//     { name: 'JavaScript' },
-//   ],
-//   experience: [
-//     {
-//       title: 'Software Engineer',
-//       company: 'Example Inc.',
-//       startDate: '2019',
-//       endDate: 'Present',
-//       description: 'Developed web applications using React and Node.js',
-//       skills: ['React', 'Node.js', 'JavaScript'],
-//     },
-//     {
-//       title: 'Software Engineer 2',
-//       company: 'Example Inc.',
-//       startDate: '2019',
-//       endDate: 'Present',
-//       description: 'Developed web applications using React and Node.js',
-//       skills: ['React', 'Node.js', 'JavaScript'],
-//     },
-//   ],
-//   projects: [
-//     {
-//       title: 'Example Project',
-//       startDate: '2020',
-//       endDate: '2021',
-//       descriptions: 'Developed web applications using React and Node.js',
-//       skills: ['React', 'Node.js', 'JavaScript'],
-//     },
-//     {
-//       title: 'Example Project 2',
-//       startDate: '2020',
-//       endDate: '2021',
-//       descriptions: 'Developed web applications using React and Node.js',
-//       skills: ['React', 'Node.js', 'JavaScript'],
-//     },
-//   ],
-//   education: [
-//     {
-//       school: 'Example University',
-//       degree: 'B.S.',
-//       major: 'Computer Science',
-//       startDate: '2015',
-//       endDate: '2019',
-//       skills: [],
-//     }
-//   ],
-//   extraCurricular: [
-//     {
-//       title: 'Example Club',
-//       description: 'President',
-//     },
-//   ]
-// };
 
 interface Experience {
   title: string;
@@ -316,84 +256,73 @@ const MyDocument = ({ data }: { data: Data }) => (
   </Document>
 );
 
-// export default Component;
-const Component = () => {
-  // const handleDownload = async () => {
-  //   const doc = <MyDocument data={basic} />;
-  //   const asPdf = pdf();
-  //   asPdf.updateContainer(doc);
-  //   const blob = await asPdf.toBlob();
-  //   const url = URL.createObjectURL(blob);
-  //   const a = document.createElement('a');
-  //   a.href = url;
-  //   a.download = 'cv.pdf';
-  //   a.click();
-  // };
-
-  const trimmedData = {
-    users: [
-      {
-        name: "John Doe",
-        email: "john.doe@example.com",
-        password: "securepassword",
-        skills: ["JavaScript", "React"],
-      },
-    ],
-    education: [
-      {
-        id: "edu1",
-        school: "McGill University",
-        degree_type: "Bachelors",
-        major: "Computer Science",
-        start_date: { year: 2020, month: 9, day: 1 },
-        end_date: { year: 2024, month: 6, day: 30 },
-        user_id: "john.doe@example.com",
-      },
-    ],
-    workExperience: [
-      {
-        id: "work1",
-        title: "Software Engineer Intern",
-        company: "Tech Corp",
-        description: "Worked on developing features.",
-        skills_used: ["Java", "Spring Boot"],
-        start_date: { year: 2023, month: 5, day: 15 },
-        end_date: { year: 2023, month: 6, day: 15 },
-        current_job: true,
-        user_id: "john.doe@example.com",
-      },
-      {
-        id: "work2",
-        title: "Computer Engineer Intern",
-        company: "Tech Corp",
-        description: "Worked on developing features.",
-        skills_used: ["Java", "Spring Boot"],
-        start_date: { year: 2023, month: 5, day: 15 },
-        end_date: null,
-        current_job: true,
-        user_id: "john.doe@example.com",
-      },
-    ],
-    project: [
-      {
-        id: "project1",
-        title: "Project 1",
-        start_date: { year: 2023, month: 5, day: 15 },
-        end_date: { year: 2023, month: 6, day: 15 },
-        descriptions: "Developed a web application.",
-        skills: ["React", "Node.js"],
-        user_id: "john.doe@example.com",
-      },
-    ],
-    extraCurricular: [
-      {
-        id: "extra1",
-        title: "Club 1",
-        description: "President",
-        user_id: "john.doe@example.com",
-      },
-    ],
-  };
+const Component = ({trimmed}: {trimmed: { users: any[]; education: any[] | null; workExperience: any[] | null; project: any[] | null; extraCurricular: any[] | null }}) => {
+  // const trimmedData: any = {};
+  // Object.assign(trimmedData, {
+    // users: [
+    //   {
+    //     name: "John Doe",
+    //     email: "john.doe@example.com",
+    //     password: "securepassword",
+    //     skills: ["JavaScript", "React"],
+    //   },
+    // ],
+    // education: [
+    //   {
+    //     id: "edu1",
+    //     school: "McGill University",
+    //     degree_type: "Bachelors",
+    //     major: "Computer Science",
+    //     start_date: { year: 2020, month: 9, day: 1 },
+    //     end_date: { year: 2024, month: 6, day: 30 },
+    //     user_id: "john.doe@example.com",
+    //   },
+    // ],
+    // workExperience: [
+    //   {
+    //     id: "work1",
+    //     title: "Software Engineer Intern",
+    //     company: "Tech Corp",
+    //     description: "Worked on developing features.",
+    //     skills_used: ["Java", "Spring Boot"],
+    //     start_date: { year: 2023, month: 5, day: 15 },
+    //     end_date: { year: 2023, month: 6, day: 15 },
+    //     current_job: true,
+    //     user_id: "john.doe@example.com",
+    //   },
+    //   {
+    //     id: "work2",
+    //     title: "Computer Engineer Intern",
+    //     company: "Tech Corp",
+    //     description: "Worked on developing features.",
+    //     skills_used: ["Java", "Spring Boot"],
+    //     start_date: { year: 2023, month: 5, day: 15 },
+    //     end_date: null,
+    //     current_job: true,
+    //     user_id: "john.doe@example.com",
+    //   },
+    // ],
+    // project: [
+    //   {
+    //     id: "project1",
+    //     title: "Project 1",
+    //     start_date: { year: 2023, month: 5, day: 15 },
+    //     end_date: { year: 2023, month: 6, day: 15 },
+    //     descriptions: "Developed a web application.",
+    //     skills: ["React", "Node.js"],
+    //     user_id: "john.doe@example.com",
+    //   },
+    // ],
+    // extraCurricular: [
+    //   {
+    //     id: "extra1",
+    //     title: "Club 1",
+    //     description: "President",
+    //     user_id: "john.doe@example.com",
+    //   },
+    // ],
+  //   ...trimmedData
+  // });
   const monthNames = [
     "January",
     "February",
@@ -408,8 +337,14 @@ const Component = () => {
     "November",
     "December",
   ];
-  const formatDateToMonthYear = (dateObj: { year: any; month: any; }) => {
+  const formatDateToMonthYear = (dateObj: string | { year: any; month: any; }) => {
     if (!dateObj) return '';
+      if (typeof dateObj === 'string') {
+    const date = new Date(dateObj); // Convert string to Date object
+    const month = date.getMonth(); // 0-indexed month
+    const year = date.getFullYear(); // Full year
+    return `${monthNames[month]}, ${year}`;
+  } 
     const { year, month } = dateObj;
     return `${monthNames[month - 1]}, ${year}`; // Month is 1-indexed
   };
@@ -447,7 +382,13 @@ const Component = () => {
     };
   };
 
-  const formattedData = formatData(trimmedData);
+  const formattedData = formatData({
+    ...trimmed,
+    education: trimmed.education || [],
+    workExperience: trimmed.workExperience || [],
+    project: trimmed.project || [],
+    extraCurricular: trimmed.extraCurricular || [],
+  });
   const data: Data = {
     name: formattedData.users[0].name,
     email: formattedData.users[0].email,
@@ -518,6 +459,11 @@ const Component = () => {
 
   return (
     <div>
+      <h2>Preview of CV</h2>
+      <PDFViewer width="100%" height="600">
+        <MyDocument data={data} />
+      </PDFViewer>
+      
       <button onClick={handleDownload}>Download CV</button>
     </div>
   );

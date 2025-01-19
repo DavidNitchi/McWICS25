@@ -2,12 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import NavBar from "@/components/navBar";
-import MainButton from "@/components/Buttons/mainButton";
 import JobsCarousel from "@/components/ui/jobsCarousel";
-import { getAllUserExperiences, getSkills } from "@/db/query";
+import { getAllUserExperiences, getSkills, getUser } from "@/db/query";
 import { verifySession } from "@/db/dal";
 import { prompt } from "@/api/geminiAPI";
 import { data } from "@/db/dummyData"; // Dummy data for jobs carousel
+
+import Component from '@/components/reactToPDF'
+import { format } from "path";
 
 export type expType =
   | {
@@ -27,7 +29,9 @@ export type expType =
     }[];
 
 export default function CVCreationPage() {
+  const [genCV, setGenCV] = useState(false);
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [userExperiences, setUserExperiences] = useState<expType[]>([]);
   const [userSkills, setUserSkills] = useState<string[]>([]);
   const [inputText, setInputText] = useState("");
@@ -37,10 +41,16 @@ export default function CVCreationPage() {
     const fetchData = async () => {
       try {
         const result = await verifySession();
-        setEmail(result.email);
+        if (typeof result.email === 'string') {
+          setEmail(result.email);
+        }
 
-        const experiences = await getAllUserExperiences(result.email);
-        const skills = await getSkills(result.email);
+        const experiences = await getAllUserExperiences(result.email as string);
+        const skills = await getSkills(result.email as string);
+        const name = await getUser(result.email as string);
+        if (name) {
+          setName(name.name);
+        }
 
         setUserExperiences(experiences || []);
         setUserSkills(skills || []);
@@ -67,6 +77,20 @@ export default function CVCreationPage() {
       userSkills,
     ];
   };
+
+  const trimmedData = {
+    users: [
+      {
+        name: name,
+        email: email,
+        skills: userSkills ? userSkills : null,
+      },
+    ],
+    education: formatExperiences()[0].length > 0 ? formatExperiences()[0] : null,
+    workExperience: formatExperiences()[1].length > 0 ? formatExperiences()[1] : null,
+    project: formatExperiences()[2].length > 0 ? formatExperiences()[2] : null,
+    extraCurricular: formatExperiences()[3].length > 0 ? formatExperiences()[3] : null,
+  }
 
   const handleGenerateCV = () => {
     const formattedData = formatExperiences();
@@ -99,11 +123,14 @@ export default function CVCreationPage() {
         />
         <div>
           <button
-            onClick={handleGenerateCV}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md mb-16"
+            onClick={() => { handleGenerateCV(); setGenCV(true); }}
+            className="bg-blue-500 hover:bg-blue-600 font-mono text-white font-semibold py-2 px-4 rounded-lg shadow-md mb-10"
           >
             Generate CV
           </button>
+        </div>
+        <div className="w-2/3 text-center flex-col h-full mx-auto mb-10">
+          {genCV && <Component trimmed={trimmedData} />}
         </div>
         <div className="flex flex-col items-center space-y-4 mt-5">
             <div className="w-9/12 font-bold text-2xl font-mono">Today's Jobs</div>
