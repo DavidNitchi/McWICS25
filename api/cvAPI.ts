@@ -3,9 +3,8 @@
 import { verifySession } from "@/db/dal";
 import { getAllUserExperiences } from "@/db/query";
 import {prompt} from "./geminiAPI";
-export default async function CVAPI(jobDescription: string){
-  const email = await verifySession();
-  const userExps = await getAllUserExperiences(email.email as string);
+export default async function CVAPI(jobDescription: string, userExps: any){
+  
   const formatExperiences = function () {
     console.log("userExps in format exp:", userExps)
     let educationFormatted = [];

@@ -4,11 +4,15 @@ import { verifySession } from "@/db/dal";
 import { useState, useEffect, use } from "react";
 import { getAllUserExperiences, getSkills } from "@/db/query";
 import { prompt } from "@/api/geminiAPI";
-import CVAPI from "@/api/cvAPI";
-
+//import CVAPI from "@/api/cvAPI";
+import { fit } from "@/api/greedyAlg";
 export default function Home() {
   const [email, setEmail] = useState("m@gmail.com");
   const [inputText, setInputText] = useState<string>("");
+
+  function greedyAlg(inputText: string) {
+    throw new Error("Function not implemented.");
+  }
 
   // Calling verify session to redirect to login
   // useEffect(() => {
@@ -123,7 +127,7 @@ export default function Home() {
         <div>
           <button
             onClick={async () => {
-              const response = await CVAPI(inputText);
+              const response = await fit(inputText);
               console.log(response);
               
             }}
