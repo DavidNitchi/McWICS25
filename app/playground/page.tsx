@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { prompt } from "@/api/geminiAPI";
 import { render } from "@/api/puppeteer";
 import { fit } from "@/api/greedyAlg";
-import Component from "@/components/reactToPDF";
+// import Component from "@/components/reactToPDF";
 import { getAllUserExperiences } from "@/db/query";
 
 export default function Page() {
@@ -95,7 +95,7 @@ const jobDescription =
       <div className="border border-black w-[500px] h-[500px]">
         {reply && <p>{reply}</p>}
       </div>
-      <Component></Component>
+      {/* <Component></Component> */}
       <button
         className="bg-green-400 text-white p-4 border rounded-md border-black hover:text-xl"
         onClick={() => fit()}
