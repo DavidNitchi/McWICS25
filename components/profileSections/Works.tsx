@@ -8,7 +8,7 @@ interface WorksProps {
   
   const WorkInfo: React.FC<WorksProps> = ({ works, toggleWorkInfoPopup }) => {
     return (
-      <section className="p-4 bg-gray-100 rounded-lg shadow space-x-4 ">
+      <section className="p-4 bg-gray-100 rounded-lg shadow px-7">
         <h2 className="text-2xl font-semibold mb-2">Work Experiences</h2>
         <ul>
           {works.map((work, index) => (
